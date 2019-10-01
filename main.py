@@ -63,11 +63,7 @@ def cycleLeds(cycles):
         np.write()
         time.sleep_ms(LEDELAY)
         i = i + 1
-    #np[0] = WHITE
-    #np.write()
-    #time.sleep(0.2)
-    #np[0] = NP_OFF
-    #np.write()
+    
 
 #Startup Led
 def startLed():
@@ -85,8 +81,6 @@ def normalModeOn():
 #Led configuratios for program mode
 def programModeOn():
     cycleLeds(2)
-    #np[0] = BLUE
-    #np.write()
     relay(RELAY_OFF)
 
 #Acess granted
@@ -103,13 +97,11 @@ def granted():
 #Access denied
 def denied():
     #Suavisa ao acender a luz
-    for i in range(0,256):
-        np[0] = (i,0,0)
-        np.write()
-        time.sleep_ms(2)
+    np[0] = (255,0,0)
+    np.write()
+    time.sleep_ms(2)
 
-    #np[0] = RED
-    #np.write()
+    
     relay.value(RELAY_OFF)
     print("---------------")
     print("You Shall Not Pass.")
@@ -184,7 +176,7 @@ while(True):
             print("Master Card Scanned")
             print("Exiting Program Mode and Opening Door")
             print("-----------------------------")
-            granted(1)
+            granted()
             programMode = False
         else:
             if stp.findCard(cardTag)[0]:
@@ -219,6 +211,6 @@ while(True):
             print("-----------------------------")
         else:
             if stp.findCard(cardTag)[0]:
-                granted(1)
+                granted()
             else:
                 denied()
